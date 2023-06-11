@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cstdlib> // para usar a função rand()
 #include <ctime>   // para usar a função time()
 
@@ -6,9 +7,10 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int tam = 10; // tamanho do array
+    int sortType = stoi(argv[1]);
+    int tam = stoi(argv[2]); // tamanho do array
     int arr[tam]; // declaração do array
     // semente para a função rand() com base no tempo atual
     srand(time(NULL));
@@ -19,9 +21,21 @@ int main()
     for (int i = 0; i < tam; i++) {
         arr[i] = rand() % 100; // valores entre 0 e 99
     }
-    int* sortedArray = bubble_sort(arr, tam);
 
-    print_arr(sortedArray, tam);
+    switch (sortType) 
+    {
+    case 1:
+        bubble_sort(arr, tam);
+        break;
+    case 2:
+        merge_sort(arr, 0, tam-1);
+        break;
+    case 3:
+        quicksort(arr, 0, tam-1, tam);
+        break;
+    }
+    print_arr(arr, tam);
 
     return 0;
 }
+
